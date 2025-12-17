@@ -64,7 +64,11 @@ if selected_points["selection"]["points"]:
     linechart = px.line(df[df["iso3"].isin(selected_countries)], x="year", y="life_expectancy", color="country", markers=True)
     tab1.plotly_chart(linechart)
 else:
-    st.warning("Please select countries on the map. Use shift+click for multiple countries")
+    tab1.warning("Please select countries on the map. Use shift+click for multiple countries")
 
 # Tab 2: Dataframe
-selected_rows = tab2.dataframe(plotdata,  on_select="rerun", selection_mode="multi-row")
+selected_rows = tab2.dataframe(plotdata, 
+                               column_config={"population": st.column_config.NumberColumn(format="compact"),
+                                              "gdp": st.column_config.NumberColumn(format="compact"),
+                                              "life_expectancy": st.column_config.NumberColumn(format="compact"),
+                                              "fertility": st.column_config.NumberColumn(format="percent")})
